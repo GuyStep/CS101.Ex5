@@ -74,7 +74,7 @@ void runGame(int rows, int cols, long iterations, char board[][MAX_BOARD_SIZE]) 
 				neigCounter = 0;
 				neigCounter = getNeighbors(rows, cols, tempBoard, i, j);
 
-				//Block changes the cell for the next iteration according to the number of neighbor it has
+				//Block changes the cell for the next iteration according to the number of neighbors it has
 				{
 					if (tempBoard[i][j] == '-')
 						if (neigCounter == 3) {
