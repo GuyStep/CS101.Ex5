@@ -16,5 +16,6 @@ void runGame(int rows, int cols, long iterations, char board[][MAX_BOARD_SIZE]);
 void loadBoard(char board[][MAX_BOARD_SIZE], int rows, int cols);
 void printArr(int rows, int cols, char board[][MAX_BOARD_SIZE]);
 int getNeighbors(int rows, int cols, char board[][MAX_BOARD_SIZE], int rowIndex, int j);
+int getCell(int cellNumber, int boardSize);
 
 #endif
