@@ -5,13 +5,13 @@
 #include "Mission4.h"
 
 /****************************************************************************************
-* function name: mission4		 														*
-* The Input: none																		*
-* The output:none, void function														*
+* function name: mission4								*
+* The Input: none									*
+* The output:none, void function							*
 * The Function operation: The function plays the "Game of life", gets number of rows and*
-*						columns for the board from the user, number of iterations to be *
-*						played, and prints the board state after the given number		*
-*						of iterations.													*
+*			columns for the board from the user, number of iterations to be *
+*			played, and prints the board state after the given number	*
+*			of iterations.							*
 ****************************************************************************************/
 void mission4(){
 	int rowsNum, colsNum;
@@ -42,16 +42,16 @@ void mission4(){
 }
 
 /************************************************************************
-* function name: runGame 												*
-* The Input: rows - number of rows board has							*
-*			cols - number of columns board has							*
-*			board[][] - the board state at the beggining				*
-*			iterations - number if iterations to be played				*
-* The output: None, void function										*
+* function name: runGame 						*
+* The Input: rows - number of rows board has				*
+*	cols - number of columns board has				*
+*	board[][] - the board state at the beggining			*
+*	iterations - number if iterations to be played			*
+* The output: None, void function					*
 * The Function operation: The function gets number of rows and columns  *
-*						for the boardas parameters, number of iterations*
-*						to be played, and prints the board state after  *
-*						the given number of iterations.					*
+*			for the boardas parameters, number of iterations*
+*			to be played, and prints the board state after  *
+*			the given number of iterations.			*
 ************************************************************************/
 void runGame(int rows, int cols, long iterations, char board[][MAX_BOARD_SIZE]) {
 	int gen, i, j, neighbors, tempCellHolder, neigCounter, aliveCounter;
@@ -107,12 +107,12 @@ void runGame(int rows, int cols, long iterations, char board[][MAX_BOARD_SIZE]) 
 }
 
 /************************************************************************
-* function name: loadBoard 												*
-* The Input: board[][] - the board state								*
-*			rows - number of rows board has								*
-*			cols - number of columns board has							*
-* The output: None, void function										*
-* The Function operation: The function gets the board from user			*
+* function name: loadBoard 						*
+* The Input: board[][] - the board state				*
+*			rows - number of rows board has			*
+*			cols - number of columns board has		*
+* The output: None, void function					*
+* The Function operation: The function gets the board from user		*
 ************************************************************************/
 void loadBoard(char board[][MAX_BOARD_SIZE], int rows, int cols) {
 	int i, j;
@@ -124,12 +124,12 @@ void loadBoard(char board[][MAX_BOARD_SIZE], int rows, int cols) {
 }
 
 /************************************************************************
-* function name: printArr 										 		*
-* The Input: rows - number of rows board has							*
-*			cols - number of columns board has							*
-*			board[][] - the board state									*
-* The output: None, void function										*
-* The Function operation: The function prints the board					*
+* function name: printArr 				 		*
+* The Input: rows - number of rows board has				*
+*			cols - number of columns board has		*
+*			board[][] - the board state			*
+* The output: None, void function					*
+* The Function operation: The function prints the board			*
 ************************************************************************/
 void printArr(int rows, int cols, char board[][MAX_BOARD_SIZE]) {
 	int i, j;
@@ -143,126 +143,59 @@ void printArr(int rows, int cols, char board[][MAX_BOARD_SIZE]) {
 }
 
 /************************************************************************
-* function name: getNeighbors 											*
-* The Input: rows - number of rows board has							*
-*			cols - number of columns board has							*
-*			board[][] - the board state									*
-*			rowIndex - the row index of the cell who's neigbors we check*
-*			colIndex - the column index of the cell						*
-* The output: number of living neighbors the cell has 					*
+* function name: getNeighbors 						*
+* The Input: rows - number of rows board has				*
+*	cols - number of columns board has				*
+*	board[][] - the board state					*
+*	rowIndex - the row index of the cell who's neigbors we check	*
+*	colIndex - the column index of the cell				*
+* The output: number of living neighbors the cell has 			*
 * The Function operation: The function counts and return how many living*
-*							neighbors given cell has					*
+*			neighbors given cell has			*
 ************************************************************************/
-int getNeighbors(int rows, int cols, char board[][MAX_BOARD_SIZE], int rowIndex, int j) {
+int getNeighbors(int rows, int cols, char board[][MAX_BOARD_SIZE], int rowIndex, int colIndex) {
 	int neigCounter = 0;
-	//Block counts how many neighbors the cell has
-
 	//Cell above
-	if (rowIndex == 0) {
-		if (board[rows - 1][j] == '*')
-			neigCounter++;
-	}
-	else
-		if (board[rowIndex - 1][j] == '*')
-			neigCounter++;
+	if(board[getCell(rowIndex - 1,rows)][colIndex]=='*')
+		neigCounter++;
 	//Cell below
-	if (rowIndex == rows - 1) {
-		if (board[0][j] == '*')
-			neigCounter++;
-	}
-	else
-		if (board[rowIndex + 1][j] == '*')
-			neigCounter++;
+	if (board[getCell(rowIndex + 1, rows)][colIndex] == '*')
+		neigCounter++;
 	//Cell to the left
-	if (j == 0) {
-		if (board[rowIndex][cols - 1] == '*')
-			neigCounter++;
-	}
-	else
-		if (board[rowIndex][j - 1] == '*')
-			neigCounter++;
-
+	if (board[rowIndex][getCell(colIndex-1,cols)] == '*')
+		neigCounter++;
 	//Cell to the right
-	if (j == cols - 1) {
-		if (board[rowIndex][0] == '*')
-			neigCounter++;
-	}
-	else
-		if (board[rowIndex][j + 1] == '*')
-			neigCounter++;
-
+	if (board[rowIndex][getCell(colIndex + 1, cols)] == '*')
+		neigCounter++;
+	//Cell in the right lower corner
+	if (board[getCell(rowIndex + 1, rows)][getCell(colIndex + 1, cols)] == '*')
+		neigCounter++;
 	//Cell in the right upper corner
-	if (j == cols - 1) {
-		if (rowIndex == 0) {
-			if (board[rows - 1][0] == '*')
-				neigCounter++;
-		}
-		else
-			if (board[rowIndex - 1][0] == '*')
-				neigCounter++;
-	}
-	else if (rowIndex == 0) {
-		if (board[rows - 1][j + 1] == '*')
-			neigCounter++;
-	}
-	else
-		if (board[rowIndex - 1][j + 1] == '*')
-			neigCounter++;
-
-	//Cell in the right bottom corner
-	if (j == cols - 1) {
-		if (rowIndex == rows - 1) {
-			if (board[0][0] == '*')
-				neigCounter++;
-		}
-		else
-			if (board[rowIndex + 1][0] == '*')
-				neigCounter++;
-	}
-	else if (rowIndex == rows - 1) {
-		if (board[0][j + 1] == '*')
-			neigCounter++;
-	}
-	else
-		if (board[rowIndex + 1][j + 1] == '*')
-			neigCounter++;
-
-	//Cell in the left bottom corner
-	if (j == 0) {
-		if (rowIndex == rows - 1) {
-			if (board[0][cols - 1] == '*')
-				neigCounter++;
-		}
-		else
-			if (board[rowIndex + 1][cols - 1] == '*')
-				neigCounter++;
-	}
-	else if (rowIndex == rows - 1) {
-		if (board[0][j - 1] == '*')
-			neigCounter++;
-	}
-	else
-		if (board[rowIndex + 1][j - 1] == '*')
-			neigCounter++;
-
+	if (board[getCell(rowIndex - 1, rows)][getCell(colIndex + 1, cols)] == '*')
+		neigCounter++;
 	//Cell in the left upper corner
-	if (j == 0) {
-		if (rowIndex == 0) {
-			if (board[rows - 1][cols - 1] == '*')
-				neigCounter++;
-		}
-		else
-			if (board[rowIndex - 1][cols - 1] == '*')
-				neigCounter++;
-	}
-	else if (rowIndex == 0) {
-		if (board[rows - 1][j - 1] == '*')
-			neigCounter++;
-	}
-	else
-		if (board[rowIndex - 1][j - 1] == '*')
-			neigCounter++;
-	
+	if (board[getCell(rowIndex - 1, rows)][getCell(colIndex - 1, cols)] == '*')
+		neigCounter++;
+	//Cell in the left lower corner
+	if (board[getCell(rowIndex + 1, rows)][getCell(colIndex - 1, cols)] == '*')
+		neigCounter++;
+
 	//Return the number of "living" neighbors
 	return neigCounter;
+}
+
+/************************************************************************
+* function name: getCell 						*
+* The Input: cellNumber - number of rows board has			*
+*			boardSize - number of columns\rows		*				
+* The output: Updated cell index					*
+* The Function operation: The function treats special cases of		*
+*						cell positions.		*
+************************************************************************/
+int getCell(int cellNumber, int boardSize) {
+	if (cellNumber < boardSize && cellNumber>0)
+		return cellNumber;
+	else if (cellNumber < 0) 
+		return (boardSize + cellNumber);
+	else return cellNumber % (boardSize);
 }
